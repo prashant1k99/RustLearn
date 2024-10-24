@@ -1,4 +1,5 @@
 ### 1) Hello World!
+[Documentation](https://doc.rust-lang.org/book/ch01-02-hello-world.html)
 `main` function is important in rust as every execution begins from this function 
 ```rust
 fn main() {
@@ -7,6 +8,7 @@ fn main() {
 ```
 
 ### 2) Hello Cargo
+[Documentation](https://doc.rust-lang.org/book/ch01-03-hello-cargo.html)
 Cargo is Rust’s build system and package manager. 
 Most Rustaceans use this tool to manage their Rust projects because Cargo handles a lot of tasks for you, such as building your code, downloading the libraries your code depends on, and building those libraries. 
 (We call the libraries that your code needs dependencies.)
@@ -54,3 +56,60 @@ Let’s recap what we’ve learned so far about Cargo:
 - We can build a project without producing a binary to check for errors using cargo check.
 - Instead of saving the result of the build in the same directory as our code, Cargo stores it in the target/debug directory.
 
+### Standard I/O:
+[Documentation](https://doc.rust-lang.org/book/ch02-00-guessing-game-tutorial.html)
+In this project we will learn how to take the CLI input:
+```rust
+// We are importing the standard library for io
+use std::io;
+
+fn main() {
+    println!("Guess a number");
+
+    println!("Please input a number:");
+    // We create a mutable variable of type string, which will store the input from the CLI input
+    let mut guess = String::new();
+
+    io::stdin()
+        // We provide the variable here to store it
+        .read_line(&mut guess)
+        // We are handling error exceptions here
+        .expect("Failed to read line");
+
+    println!("You guessed, {}", guess)
+}
+```
+To know about more standard libraries provided by rust, view [documentation](https://doc.rust-lang.org/std/prelude/index.html)
+
+Complete code:
+```rust
+use rand::Rng;
+use std::cmp::Ordering;
+use std::io;
+
+fn main() {
+    println!("Guess a number");
+
+    // rand is third party package which generates a randon number
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+
+    println!("Please input a number [1 - 100]:");
+    // Declaring a mutable variable of type string
+    let mut guess = String::new();
+
+    // We are reading from the CLI input
+    io::stdin()
+        .read_line(&mut guess)
+        .expect("Failed to read line");
+
+    // Here we are parsing the number to be in uint32 from string
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
+    // Here we are checking if the compared number is Lesser, Equal or Greater than the secret number
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Equal => println!("Yay, Correct guess!"),
+        Ordering::Greater => println!("Too Large!"),
+    }
+}
+```

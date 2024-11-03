@@ -57,7 +57,7 @@ fn character_types() {
 
     let hearted_eye_cat = '😻';
     println!("emojoi  is {}", hearted_eye_cat);
-    // emojoi  is 😻
+    // emoji  is 😻
 }
 
 fn base_data_types() {

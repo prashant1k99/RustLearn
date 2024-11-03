@@ -77,7 +77,7 @@ fn main() {
     println!("s1 = {s1}, s2 = {}", s2);
     // s1 = String2, s2 = String2
 
-    // Stack-Onkly Data: Copy
+    // Stack-Only Data: Copy
     let x = 5;
     let y = x;
     println!("x = {x}, y = {}", y);

@@ -1,6 +1,5 @@
 // We need to bring the hashmaps to scope
 use std::collections::HashMap;
-use std::iter::Copied;
 
 fn main() {
     let mut score = HashMap::new();

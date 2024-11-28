@@ -12,7 +12,7 @@ fn main() {
 
         let mut guess = String::new();
 
-        // This appends the input to the guess variable instead of over-wrtting it
+        // Take users input and see if it has any error
         io::stdin()
             .read_line(&mut guess)
             .expect("Failed to read line");

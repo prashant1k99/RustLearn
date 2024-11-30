@@ -125,6 +125,5 @@ fn if_expressions(number: i32) {
     // The value of x is 3
 
     // let x = if number == 3 { number } else { "three" };
-    //     ├╴  `if` and `else` have incompatible types
-    // │    expected integer, found `&str` rustc (E0308) [25, 46]
+    //     ├╴  `if` and `else` have incompatible types │    expected integer, found `&str` rustc (E0308) [25, 46]
 }

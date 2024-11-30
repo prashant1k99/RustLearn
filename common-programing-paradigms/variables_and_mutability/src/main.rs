@@ -18,6 +18,8 @@ fn immutable_vars() {
     // The updated value of j is 20
 }
 
+// This is constant, for constant we have to specify the datatype along with the declaration and
+// initializartion
 const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 
 fn shadowing() {

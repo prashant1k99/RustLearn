@@ -22,8 +22,8 @@ fn main() {
     }
     // The maximum is configured to be 3
 
-    // If the value is Some, we print out the value in the Some variants binding the value to teh
-    // variable max in the pattern. We don't want tooo do anything with None value. But we are
+    // If the value is Some, we print out the value in the Some variants binding the value to the
+    // variable max in the pattern. We don't want to do anything with None value. But we are
     // forced to implemnet _ in order to satisfy the compiler condition.
     // Alternatively we can do is:
     if let Some(max) = config_max {

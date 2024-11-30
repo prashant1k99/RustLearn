@@ -1,8 +1,9 @@
+#[derive(Debug)]
 struct User {
-    active: bool,
     username: String,
     email: String,
     sign_in_count: u64,
+    active: bool,
 }
 
 fn main() {
@@ -31,7 +32,9 @@ fn main() {
         String::from("some@email.com"),
     );
 
-    user2.active = true;
+    user2.active = false;
+    println!("{:?}", user2);
+    // User { username: "some@email.com", email: "second@user.com", sign_in_count: 1, active: false }
 
     // Creating instances from other instances with Struct Update syntax
     let _user3 = User {

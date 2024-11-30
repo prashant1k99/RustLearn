@@ -42,10 +42,10 @@ fn second_word(s: &String) -> &str {
 }
 
 // the first_word function has &String as a parameter. We don't want ownership, so this is fine.
-// But what should we return? We don't really have a way to talk aabout part of a string. However,
+// But what should we return? We don't really have a way to talk about part of a string. However,
 // we could return the index of the end of the word, indicated by a space.
 fn first_word(s: &String) -> &str {
-    // BEcause we need to go through the `String` element by element and check whether a valus is a
+    // Because we need to go through the `String` element by element and check whether a valus is a
     // space, we'll convert our `String` to an array of bytes using `as_bytes` method.
     let bytes = s.as_bytes();
 

@@ -13,8 +13,8 @@ fn main() {
     println!("s2 before: {s2}");
     // s2 before: Hello
     change(&mut s2);
-    println!("s2 is not: {s2}");
-    // s2 is not: Hello, world
+    println!("s2 is now: {s2}");
+    // s2 is now: Hello, world
 
     // Mutable references have one big restriction: if you have a mutable reference to a value, you
     // can have no other referene to that value. This code that attepts to create two mutable
@@ -22,7 +22,9 @@ fn main() {
     let mut s = String::from("hello");
 
     let r1 = &mut s;
+    r1.push_str("Hi!!!");
     // let r2 = &mut s;
+    // r2.push_str("Hello");
 
     // println!("{r1}, {r2}");
     // error[E0499]: cannot borrow `s` as mutable more than once at a time
@@ -38,7 +40,7 @@ fn main() {
 
     // The benefit of having this restriction is that Rust can prevent data races at compile time.
     // A data race is similar to a race condition and happens when these three behaviours occur:
-    // - Two or more poiunters access the same data at the same time.
+    // - Two or more pointers access the same data at the same time.
     // - At least one of the pointers is being used to write to the data.
     // - There's no mechanism being used to synchronizes access to the data.
     allow_multiple_mutables();
@@ -121,7 +123,7 @@ fn change(some_stirng: &mut String) {
     some_stirng.push_str(", world");
 }
 
-fn calculate_length(s: &String) -> usize {
+fn calculate_length(s: &str) -> usize {
     // s is a reference to a String
 
     // We cannot modify it as this is immutable reference

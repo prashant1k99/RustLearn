@@ -38,13 +38,13 @@ mod tests_add {
 }
 
 #[derive(Debug)]
-struct Rectangle {
-    width: i32,
-    height: i32,
+pub struct Rectangle {
+    pub width: i32,
+    pub height: i32,
 }
 
 impl Rectangle {
-    fn can_hold(&self, another_rect: &Rectangle) -> bool {
+    pub fn can_hold(&self, another_rect: &Rectangle) -> bool {
         self.width >= another_rect.width && self.height >= another_rect.height
     }
 }
@@ -88,9 +88,6 @@ pub fn add_two(a: usize) -> usize {
 
 #[cfg(test)]
 mod tests_add_two {
-    use std::error::Error;
-    use std::fmt::Result;
-
     use super::*;
 
     #[test]
@@ -132,3 +129,65 @@ mod test_greeting {
         );
     }
 }
+
+// By default the tests run in parallel, if we want to run them in order, we can achieve it by
+// setting the following argument:
+// cargo test -- --test-threads=1
+// Where test-threads denote number of threads allowed parallely, we can control it and see how it
+// affects in different settings
+
+// Now bydefault we don't see the console output in the result but if we want to se it, we can do
+// that by using following command
+// cargo test -- --show-output
+// Example:
+pub fn prints_and_returns_10(a: i32) -> i32 {
+    println!("I got the value {a}");
+    10
+}
+
+#[cfg(test)]
+mod tests_printing {
+    use super::prints_and_returns_10;
+
+    #[test]
+    fn this_test_will_pass() {
+        let value = prints_and_returns_10(4);
+        assert_eq!(value, 10);
+    }
+
+    #[test]
+    #[ignore]
+    fn this_test_will_fail() {
+        let value = prints_and_returns_10(8);
+        assert_eq!(value, 5);
+    }
+}
+// With this and the argument --show-output we are able to see the println! output in the test
+// suite
+
+// To Run a Subset of test from the suite of tests:
+// To run a single test out of all, we just specify which tests to run:
+// cargo test tests_printing
+// Output:
+// running 2 tests
+// test tests_printing::this_test_will_pass ... ok
+// test tests_printing::this_test_will_fail ... FAILED
+//
+// To filter out test based on the test names, example:
+// cargo test add
+// Output:
+// running 6 tests
+// test tests_add::positive_case ... ok
+// test tests_add::should_fail ... ok
+// test tests_add_two::it_works ... ok
+// test tests_add_two::it_adds_two ... ok
+// test tests_add::should_panic_with_error_msg - should panic ... FAILED
+// test tests_add::should_panic - should panic ... ok
+
+// To ignore some test cases, just add #[ignore] attribute to the test case. As added in
+// tests_printing test
+//
+// cargo test tests_printing
+// running 2 tests
+// test tests_printing::this_test_will_fail ... ignored
+// test tests_printing::this_test_will_pass ... ok

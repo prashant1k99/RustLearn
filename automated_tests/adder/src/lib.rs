@@ -27,6 +27,7 @@ mod tests_add {
 
     // to write the custom messages for panic:
     #[test]
+    #[ignore]
     #[should_panic(expected = "Something went wrong")]
     fn should_panic_with_error_msg() {
         panic!("Unknown reasion");

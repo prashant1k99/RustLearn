@@ -7,12 +7,19 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("Not Enough Arguments");
-        }
-        let query = args[1].clone();
-        let file_path = args[2].clone();
+    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
+        // We are discarding first parameter as it's the command path
+        args.next();
+
+        let query = match args.next() {
+            Some(val) => val,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let file_path = match args.next() {
+            Some(val) => val,
+            None => return Err("Please pass the file path to query"),
+        };
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
@@ -41,14 +48,10 @@ pub fn run(cfg: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut results = Vec::new();
-    for line in contents.lines() {
-        if line.contains(query) {
-            results.push(line)
-        }
-    }
-
-    results
+    contents
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 
 fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {

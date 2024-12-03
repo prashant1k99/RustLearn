@@ -1,0 +1,7 @@
+[package]
+name = "prashant_art"
+version = "0.1.0"
+authors = ["prashant1k99"]
+edition = "2021"
+
+[dependencies]

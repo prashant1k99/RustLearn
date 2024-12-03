@@ -4,5 +4,6 @@ version = "0.1.0"
 authors = ["prashant1k99"]
 edition = "2021"
 license = "MIT"
+description = "A library for modeling artistic concepts. [Test]"
 
 [dependencies]

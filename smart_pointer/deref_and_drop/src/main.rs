@@ -40,7 +40,40 @@ fn main() {
     // 2) From &mut T to &mut U when T: DerefMut<Target=U>
     // 3) From &mut T to &U when T: Deref<Target=U>
     // Not it does not does from immutable T to mutable U as it needs to follow borrowing rules
+
+    // NOte the smart pointers will be dropped in the reverse order of there creation
+    let _c = CustomSmartPointer {
+        data: String::from("my stuff"),
+    };
+    let _d = CustomSmartPointer {
+        data: String::from("other stuff"),
+    };
+
+    println!("CustomSmartPointerCreated;");
+    // CustomSmartPointerCreated;
+
+    // Now you have complete control over drops. Let's say you want to delete something before it
+    // gets out of scope.
+    let c = CustomSmartPointer {
+        data: String::from("my stuff"),
+    };
+
+    println!("CustomSmartPointerCreatedAgain");
+    // CustomSmartPointerCreatedAgain
+
+    // This gives an error as if we drop the value here and then system again tries to drop the
+    // value which might be already dropped. So we cannot do this.
+    // c.drop();
+    // error[E0040]: explicit use of destructor method
+    // To solve it we can do it this way
+
+    drop(c);
+    // Dropping CustomSmartPointer with data `my stuff`!
+    println!("Scope ends here");
+    // Scope ends here
 }
+// Dropping CustomSmartPointer with data `other stuff`!
+// Dropping CustomSmartPointer with data `my stuff`!
 
 fn hello(name: &str) {
     println!("Hello, {name}!");
@@ -59,5 +92,16 @@ impl<T> Deref for MyBox<T> {
 
     fn deref(&self) -> &Self::Target {
         &self.0
+    }
+}
+
+// Let's create a seperate custom smart pointer
+struct CustomSmartPointer {
+    data: String,
+}
+
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
     }
 }

@@ -1,6 +1,5 @@
 // RefCell checks the borrowing rules at runtime
 // Since it checks the borrowing rules at Runtime so the performance takes a slight hit
-
 pub trait Messenger {
     fn send(&self, msg: &str);
 }
